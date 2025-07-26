@@ -1,5 +1,6 @@
 import { Inngest } from "inngest";
 import User from "../models/User.js";
+import connectDB from "../configs/db.js";
 
 export const inngest = new Inngest({ id: "movie-ticket-booking" });
 
@@ -9,6 +10,7 @@ const syncUserCreation = inngest.createFunction(
     { event: 'clerk/user.created' },
 
     async ({ event }) => {
+        await connectDB();
         const { id, first_name, last_name, email_addresses, image_url } = event.data;
         const userData = {
             _id: id,
@@ -22,10 +24,12 @@ const syncUserCreation = inngest.createFunction(
 
 // Ingest function delete user data to database
 const syncUserDeletion = inngest.createFunction(
+
     { id: 'delete-user-with-clerk' },
     { event: 'clerk/user.deleted' },
 
     async ({ event }) => {
+        await connectDB();
         const { id } = event.data;
         await User.findByIdAndDelete(id);
     }
@@ -37,6 +41,7 @@ const syncUserUpdation = inngest.createFunction(
     { event: 'clerk/user.updated' },
 
     async ({ event }) => {
+        await connectDB();
         const { id, first_name, last_name, email_addresses, image_url } = event.data;
         const userData = {
             _id: id,
