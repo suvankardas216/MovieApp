@@ -11,6 +11,7 @@ const syncUserCreation = inngest.createFunction(
 
     async ({ event }) => {
         await connectDB();
+        console.log(' DB connected');
         const { id, first_name, last_name, email_addresses, image_url } = event.data;
         const userData = {
             _id: id,
@@ -30,8 +31,10 @@ const syncUserDeletion = inngest.createFunction(
 
     async ({ event }) => {
         await connectDB();
+        console.log(' DB connected');
         const { id } = event.data;
         await User.findByIdAndDelete(id);
+        console.log('✅ User deleted');
     }
 )
 
@@ -42,6 +45,7 @@ const syncUserUpdation = inngest.createFunction(
 
     async ({ event }) => {
         await connectDB();
+        console.log(' DB connected');
         const { id, first_name, last_name, email_addresses, image_url } = event.data;
         const userData = {
             _id: id,
