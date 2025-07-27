@@ -74,7 +74,7 @@ export const createBooking = async (req, res) => {
         await inngest.send({
             name: 'app/checkpayment',
             data: {
-                booking: booking._id.toString(),
+                bookingId: booking._id.toString(),
             }
         })
 
