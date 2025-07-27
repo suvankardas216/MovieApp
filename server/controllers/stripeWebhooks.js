@@ -38,6 +38,12 @@ export const stripeWebhooks = async (req, res) => {
                     paymentLink: ""
                 })
 
+                //send email notification to customer 
+                await inngest.send({
+                    name: 'app/show.booked',
+                    data: { bookingId }
+                })
+
                 break;
 
             }
