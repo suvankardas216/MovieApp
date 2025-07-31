@@ -23,12 +23,25 @@ const port = 3000
 await connectDB()
 
 // CORS middleware should come BEFORE your routes
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://movieapp-two-self.vercel.app", // ✅ your deployed frontend
+]
+
 app.use(
     cors({
-        origin: "http://localhost:5173",
+        origin: function (origin, callback) {
+            // Allow requests with no origin (like curl, mobile apps, Inngest)
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true)
+            } else {
+                callback(new Error("Not allowed by CORS: " + origin))
+            }
+        },
         credentials: true,
     }),
 )
+
 
 // Body parsing middleware
 app.use(express.json())
