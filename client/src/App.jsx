@@ -18,6 +18,8 @@ import LoadingScreen from './components/LoadingScreen';
 import { useAppContext } from './context/AppContext'
 import { SignIn } from '@clerk/clerk-react'
 import Loading from './components/Loading'
+import TheatresPage from './pages/TheatresPage'
+import Upcoming from './pages/Upcoming'
 
 const App = () => {
 
@@ -60,6 +62,8 @@ const App = () => {
           <Route path='list-shows' element={<ListShows />} />
           <Route path='list-bookings' element={<ListBookings />} />
         </Route>
+        <Route path="/theatres" element={<TheatresPage />} />
+        <Route path="/upcoming" element={<Upcoming />} />
       </Routes>
       {!isAdminRoute && <Footer />}
     </>
