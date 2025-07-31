@@ -23,7 +23,7 @@ const TheatresPage = () => {
             console.log(`🔍 Searching for theatres in: ${searchCity.trim()}`)
 
             // API call remains unchanged
-            const res = await axios.get(`http://localhost:3000/api/theatres`, {
+            const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/theatres`, {
                 params: {
                     city: searchCity.trim(),
                 },
